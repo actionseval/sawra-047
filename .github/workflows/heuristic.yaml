@@ -1,0 +1,100 @@
+name: Test
+# on: push
+on: [repository_dispatch, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        python-version:
+          - '3.14'
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: |
+          apt install -y base-files bash coreutils grep libc-bin libc6:amd64 libpcre2-8-0:amd64 libpython3.14-stdlib:amd64 libselinux1:amd64 libzstd1:amd64 locales ncurses-base openssl python3.14 tzdata
+      - run: |
+          uv sync --locked --no-dev --group tests
+          mkdir coverage
+      - run: |
+          uv run bash scripts/test-files.sh
+          uv run bash scripts/test.sh
+    env:
+      ACCEPT_EULA: Y
+      AWESOME_NAME: Wednesday
+      BOOTSTRAP_HASKELL_NONINTERACTIVE: '1'
+      COLUMNS: '254'
+      COMP_CWORD: '3'
+      COMP_WORDS: tutorial002_an_py310.py --name Rick --v
+      CONTEXT: ubuntu-py3.14
+      DEBIAN_FRONTEND: noninteractive
+      DOTNET_MULTILEVEL_LOOKUP: '0'
+      DOTNET_NOLOGO: '1'
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: '1'
+      GOD_NAME: Anubis
+      HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS: '3650'
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+      HOSTNAME: pop-os
+      ImageOS: ubuntu24
+      ImageVersion: 20260105.202.1
+      LC_CTYPE: C.UTF-8
+      LINES: '64'
+      POWERSHELL_DISTRIBUTION_CHANNEL: GitHub-Actions-ubuntu24
+      PYTEST_VERSION: 8.4.2
+      PYTEST_XDIST_TESTRUNUID: 0e5154caba9d44c293602ed019a64201
+      PYTEST_XDIST_WORKER: gw9
+      PYTEST_XDIST_WORKER_COUNT: '12'
+      PYTHONIOENCODING: utf-8
+      SHLVL: '2'
+      TERM: xterm
+      TERMINAL_WIDTH: '3000'
+      TYPER_STANDARD_TRACEBACK: ''
+      UV_NO_SYNC: 'true'
+      UV_PYTHON: '3.14'
+      UV_RUN_RECURSION_DEPTH: '1'
+      _COLON_EXAMPLE.PY_COMPLETE: complete_bash
+      _COMPLETION_ARGUMENT.PY_COMPLETE: complete_zsh
+      _COMPLETION_NO_TYPES.PY_COMPLETE: complete_zsh
+      _COMPLETION_NO_TYPES_ORDER.PY_COMPLETE: complete_zsh
+      _EXAMPLE_RICH_TAGS.PY_COMPLETE: complete_pwsh
+      _PATH_EXAMPLE.PY_COMPLETE: complete_bash
+      _PYI_LINUX_PROCESS_NAME: sawra
+      _PYI_PARENT_PROCESS_LEVEL: '1'
+      _PYTHON _M TYPER_COMPLETE: complete_bash
+      _TUTORIAL001_AN_PY310.PY_COMPLETE: complete_bash
+      _TUTORIAL001_AN_PY39.PY_COMPLETE: complete_bash
+      _TUTORIAL001_PY310.PY_COMPLETE: complete_bash
+      _TUTORIAL001_PY39.PY_COMPLETE: complete_bash
+      _TUTORIAL002_AN_PY310.PY_COMPLETE: complete_bash
+      _TUTORIAL002_AN_PY39.PY_COMPLETE: complete_bash
+      _TUTORIAL002_PY310.PY_COMPLETE: complete_bash
+      _TUTORIAL002_PY39.PY_COMPLETE: complete_bash
+      _TUTORIAL003_AN_PY310.PY_COMPLETE: complete_bash
+      _TUTORIAL003_AN_PY39.PY_COMPLETE: complete_powershell
+      _TUTORIAL003_PY310.PY_COMPLETE: complete_bash
+      _TUTORIAL003_PY39.PY_COMPLETE: complete_powershell
+      _TUTORIAL004_AN_PY310.PY_COMPLETE: complete_bash
+      _TUTORIAL004_AN_PY39.PY_COMPLETE: complete_zsh
+      _TUTORIAL004_PY310.PY_COMPLETE: complete_bash
+      _TUTORIAL004_PY39.PY_COMPLETE: complete_zsh
+      _TUTORIAL005_AN_PY39.PY_COMPLETE: complete_zsh
+      _TUTORIAL005_PY39.PY_COMPLETE: complete_zsh
+      _TUTORIAL007_AN_PY39.PY_COMPLETE: complete_zsh
+      _TUTORIAL007_PY39.PY_COMPLETE: complete_zsh
+      _TUTORIAL008_AN_PY39.PY_COMPLETE: complete_zsh
+      _TUTORIAL008_PY39.PY_COMPLETE: complete_zsh
+      _TUTORIAL009_AN_PY39.PY_COMPLETE: complete_zsh
+      _TUTORIAL009_PY39.PY_COMPLETE: complete_zsh
+      _TYPER_COMPLETE_ARGS: tutorial004_an_py39.py --name
+      _TYPER_COMPLETE_FISH_ACTION: is-args
+      _TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION: 'True'
+      _TYPER_COMPLETE_WORD_TO_COMPLETE: Seb
+      _TYPER_FORCE_DISABLE_TERMINAL: '1'
+      _TYPER_RUN_INSTALL_COMPLETION_TESTS: '1'
+      _TYPER_STANDARD_TRACEBACK: ''
