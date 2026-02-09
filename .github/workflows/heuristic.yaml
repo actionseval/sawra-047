@@ -16,9 +16,9 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Dependencies
-        run: |
-          apt install -y base-files bash coreutils grep libc-bin libc6:amd64 libpcre2-8-0:amd64 libpython3.14-stdlib:amd64 libselinux1:amd64 libzstd1:amd64 locales ncurses-base openssl python3.14 tzdata
+      # - name: Install Dependencies
+      #   run: |
+      #     apt install -y base-files bash coreutils grep libc-bin libc6:amd64 libpcre2-8-0:amd64 libpython3.14-stdlib:amd64 libselinux1:amd64 libzstd1:amd64 locales ncurses-base openssl python3.14 tzdata
       - run: |
           uv sync --locked --no-dev --group tests
           mkdir coverage
